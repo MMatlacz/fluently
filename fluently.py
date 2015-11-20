@@ -41,8 +41,5 @@ def phrasebook():
     return render_template('index.html', phrases = phrases)
 
 
-
-
-
 if __name__ == '__main__':
     app.run()
