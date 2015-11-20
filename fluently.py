@@ -38,9 +38,6 @@ def phrasebook():
     return render_template('index.html', phrases = phrases)
 
 
-@app.route('/mostPopularPlaces' )
-def most_popular_places():
-    print("sadsa")
 
 @app.route('/countPhrase', methods=['POST'])
 def get_count_phrase():
