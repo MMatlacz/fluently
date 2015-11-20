@@ -29,15 +29,15 @@ def get_db():
         db = g._database = connect_db()
     return db
 
+
 @app.route('/phrasebook')
 def phrasebook():
     #tworzenie strony
-    cur = get_db().execute('select * from phrases')
-    for phrase in cur:
+    con = get_db().execute('select * from phrases')
+    phrases = []
+    for phrase in con:
         print(phrase)
-        phrases = []
         phrases.append(phrase)
-    print(phrases)
     return render_template('index.html', phrases = phrases)
 
 
