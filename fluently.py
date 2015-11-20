@@ -1,9 +1,6 @@
-import json
 import sqlite3
-from contextlib import closing
-import os
 
-from flask import Flask, render_template, request, g
+from flask import Flask, render_template, g
 
 app_url = '/fluently'
 app = Flask(__name__)
@@ -41,8 +38,23 @@ def phrasebook():
     return render_template('index.html', phrases = phrases)
 
 
+@app.route('/mostPopularPlaces' )
+def most_popular_places():
+    print("sadsa")
+
+@app.route('/countPhrase', methods=['POST'])
+def get_count_phrase():
+    return connect_db().execute('select priority from phrases where id is 0')
+
+def write_most_popular_places( localization ):
+    print("dsaa")
+    #baza.write("localization ++")
 
 
+def increment_phrase( phrase_id ):
+    connect_db().execute('update phrases set priority = priority + 1 where id is %id') %phrase_id
 
 if __name__ == '__main__':
     app.run()
+
+    #connect_db().execute( "update phrases set english = 'hello', polish = 'czesc', category = 'basic' where id = 0" );
