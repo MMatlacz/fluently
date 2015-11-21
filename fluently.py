@@ -60,21 +60,42 @@ def countPhrase():
     cur.commit()
     return phrasebook()
 
+@app.route('/popular_places', methods=['POST'])
+def popular_places():
+    cur = connect_db()
+    place = request.args['place']
+    cur.execute("""
+    UPDATE places
+    SET popularity = popularity + 1
+    WHERE id is
+    """ + str(place))
+    cur.commit()
+    return phrasebook()
+
+@app.route('/list_popular')
+def list_popular():
+    cur = get_db().execute('SELECT * FROM places')
+    places = []
+    for place in cur:
+        places.append(place)
+    print(places)
+    return render_template('places.html', places=places)
+
 
 def write_most_popular_places(localization):
     print("dsaa")
     # baza.write("localization ++")
 
-def voice_adres_from_data(lang, text):
+def voice(lang, text):
     whole =""
     p1 = u"https://translate.google.com/translate_tts?ie=UTF-8&q="
     p2 = urllib.quote_plus(text)
-    print p2
-    #Mo%C5%BCemy%20jej%20kaza%C4%87%20przeczyta%C4%87%20wszystko&tl=pl&total=1&idx=0&textlen=36&tk=144350.266451&client=t&prev=input&ttsspeed=1
-
+    p3=u"&tl=" + urllib.quote_plus(lang)
+    #p4=u"&total=1&idx=0&textlen="
+    #p45=str(len(text))
+    p5=u"&client=t&ttsspeed=1"
+    whole = p1 + p2 + p3 + p5
     return whole
+
 if __name__ == '__main__':
     app.run()
-
-
-    # connect_db().execute( "update phrases set english = 'hello', polish = 'czesc', category = 'basic' where id = 0" );
