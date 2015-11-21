@@ -33,6 +33,7 @@ def get_db():
     if db is None:
         db = g._database = connect_db()
     return db
+
 @app.route('/categories')
 def categories():
     return render_template('phrasebook-categories.html')
@@ -42,58 +43,71 @@ def main_page():
 @app.route('/wypadki')
 def wypadki():
     # tworzenie strony
-    cur = get_db().execute('SELECT * FROM phrases WHERE category LIKE "%wypadki%" ORDER BY priority')
+    cur = get_db().execute('SELECT * FROM phrases WHERE category LIKE "%wypadki%" ORDER BY priority DESC')
     names = list(map(lambda x: x[0], cur.description))
     print(names)
     phrases = []
+    voices = []
     for phrase in cur:
         phrases.append(phrase)
+        voices.append(voice('en-gb', phrase[2]))
     print(phrases)
-    return render_template('phrasebook-template.html', phrases=phrases, image = 'fa-plus')
+    return render_template('phrasebook-template.html', data = zip(phrases, voices), category = 'wypadki', image = 'fa-plus')
 @app.route('/komunikacja')
 def komunikacja():
     # tworzenie strony
-    cur = get_db().execute('SELECT * FROM phrases WHERE category LIKE "%komunikacja%" ORDER BY priority')
+    cur = get_db().execute('SELECT * FROM phrases WHERE category LIKE "%komunikacja%" ORDER BY priority DESC')
     names = list(map(lambda x: x[0], cur.description))
     print(names)
     phrases = []
+    voices = []
     for phrase in cur:
         phrases.append(phrase)
+        voices.append(voice('en-gb', phrase[2]))
     print(phrases)
-    return render_template('phrasebook-template.html', phrases=phrases, category = 'komunikacja', image = 'fa-subway')
+    return render_template('phrasebook-template.html', data = zip(phrases, voices), category = 'komunikacja', image = 'fa-subway')
 @app.route('/nocleg')
 def nocleg():
     # tworzenie strony
-    cur = get_db().execute('SELECT * FROM phrases WHERE category LIKE "%nocleg%" ORDER BY priority')
+    cur = get_db().execute('SELECT * FROM phrases WHERE category LIKE "%nocleg%" ORDER BY priority DESC')
     names = list(map(lambda x: x[0], cur.description))
     print(names)
     phrases = []
+    voices = []
     for phrase in cur:
         phrases.append(phrase)
+        voices.append(voice('en-gb', phrase[2]))
     print(phrases)
-    return render_template('phrasebook-template.html', phrases=phrases, category = 'nocleg', image = 'fa-bed')
+    return render_template('phrasebook-template.html', data = zip(phrases, voices), category = 'nocleg', image = 'fa-bed')
 @app.route('/jedzenie')
 def jedzenie():
     # tworzenie strony
-    cur = get_db().execute('SELECT * FROM phrases WHERE category LIKE "%jedzenie%" ORDER BY priority')
+    cur = get_db().execute('SELECT * FROM phrases WHERE category LIKE "%jedzenie%" ORDER BY priority DESC')
     names = list(map(lambda x: x[0], cur.description))
     print(names)
     phrases = []
+    voices = []
     for phrase in cur:
         phrases.append(phrase)
+        voices.append(voice('en-gb', phrase[2]))
     print(phrases)
-    return render_template('phrasebook-template.html', phrases=phrases, category = 'jedzenie', image = 'fa-cutlery')
+    return render_template('phrasebook-template.html', data = zip(phrases, voices), category = 'jedzenie', image = 'fa-cutlery')
 @app.route('/ogolne')
 def ogolne():
     # tworzenie strony
-    cur = get_db().execute('SELECT * FROM phrases WHERE category LIKE "%ogolne%" ORDER BY priority')
+    cur = get_db().execute('SELECT * FROM phrases WHERE category LIKE "%ogolne%" ORDER BY priority DESC')
     names = list(map(lambda x: x[0], cur.description))
     print(names)
     phrases = []
+    voices = []
     for phrase in cur:
         phrases.append(phrase)
+        voices.append(voice('en-gb', phrase[2]))
     print(phrases)
-    return render_template('phrasebook-template.html', phrases=phrases, category = 'ogolne', image = 'fa-commenting')
+    return render_template('phrasebook-template.html', data = zip(phrases, voices), category = 'ogolne', image = 'fa-commenting')
+@app.route('/culture')
+def culture():
+    return render_template('culture.html')
 
 @app.route('/count_phrase', methods=['GET','POST'])
 def count_phrase():
@@ -123,35 +137,9 @@ def popular_places():
     cur.commit()
     return main_page()
 
-@app.route('/list_popular')
-def list_popular():
-    cur = get_db().execute('SELECT * FROM places')
-    places = []
-    for place in cur:
-        places.append(place)
-    print(places)
-    return render_template('places.html', places=places)
-
-@app.route('/get_country', methods=['POST', 'GET'])
-def get_country():
-    lat = request.args['lat']
-    lon = request.args['lon']
-    print "costam"
-    return main_page()
-
-
-def write_most_popular_places(localization):
-    print("dsaa")
-    # baza.write("localization ++")
-
 def voice(lang, text):
-    whole =""
-    p1 = u"https://translate.google.com/translate_tts?ie=UTF-8&q="
-    p2 = urllib.quote_plus(text)
-    p3=u"&tl=" + urllib.quote_plus(lang)
-    p4=u"&total=1&idx=0&textlen=36&tk=144350.266451&client=t&prev=input&ttsspeed=1"
-    whole = p1 + p2 + p3 +p4
-    div = '<video controls="" name="media" style="max-width: 100%; max-height: 100%;"><source src="' + whole + '" type="audio/mpeg"></video>'
+    div = '<video controls="" name="media" style="width: 50%; height: 30px"><source src="http://api.voicerss.org/?key=4d696d0c72a74f5594411d4977c70287&src=' + text + "&amp;hl=" + lang + "&amp;f=48khz_16bit_stereo" + '" type="audio/mpeg"></video>'
+    print(div)
     return div
 
 

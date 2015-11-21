@@ -22,10 +22,11 @@
 	</header>
 	<div class="container">
 		<div class="row phrasebook">
-			{% for phrase in phrases%}
+			{% for phrase, voice in data%}
 			<div class="col-xs-12 item">
 				<p class="native">{{ phrase[3] }}</p>
 				<p class="foreign"><a href="#"><i class="fa fa-volume-up"></i> {{ phrase[2] }}</a></p>
+				{{ voice|safe }}
 				<div class="vote">
 					<p>Czy to hasło było pomocne?</p>
 						<a href="/count_phrase?id={{phrase[0]}}&c={{category}}"><button class="btn yes" >Tak</button></a>
@@ -36,7 +37,7 @@
 		</div>
 	</div>
 	<nav class="back">
-		<a href="#"><i class="fa fa-arrow-left"></i></a>
+		<a href="/categories"><i class="fa fa-arrow-left"></i></a>
 	</nav>
 	<footer>
 		<small>&copy; 2015</small>
