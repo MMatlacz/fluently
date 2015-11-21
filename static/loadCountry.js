@@ -3,7 +3,8 @@ var lat;
 var lon;
 
 function getCountryName(){
-    $.ajax( document.URL.substring(0, document.URL.length - 10) + "/get_country" + "lat?=" + lat + "lon?=" + lon,{ // Nie wiem czy tak powinien wygladac ten url
+    getLocalization();
+    $.ajax( document.URL.substring(0, document.URL.length - 10) + "get_country" + "lat?=" + lat + "lon?=" + lon,{ // Nie wiem czy tak powinien wygladac ten url
         success: function (responseText, statusText, jqXHR){
             print(responseText);
         }
