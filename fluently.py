@@ -1,5 +1,5 @@
 import json
-import sqlite3
+import sqlite3, urllib
 from contextlib import closing
 import os
 from flask import Flask, render_template, g, request
@@ -43,6 +43,7 @@ def phrasebook():
         phrases.append(phrase)
     print(phrases)
     cur.execute("PRAGMA TABLE_INFO('phrases')")
+    voice_adres_from_data('polish','hej')
     return render_template('phrasebook-template.html', phrases=phrases)
 
 
@@ -64,8 +65,16 @@ def write_most_popular_places(localization):
     print("dsaa")
     # baza.write("localization ++")
 
+def voice_adres_from_data(lang, text):
+    whole =""
+    p1 = u"https://translate.google.com/translate_tts?ie=UTF-8&q="
+    p2 = urllib.quote_plus(text)
+    print p2
+    #Mo%C5%BCemy%20jej%20kaza%C4%87%20przeczyta%C4%87%20wszystko&tl=pl&total=1&idx=0&textlen=36&tk=144350.266451&client=t&prev=input&ttsspeed=1
 
+    return whole
 if __name__ == '__main__':
     app.run()
+
 
     # connect_db().execute( "update phrases set english = 'hello', polish = 'czesc', category = 'basic' where id = 0" );
