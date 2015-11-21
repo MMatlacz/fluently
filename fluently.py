@@ -60,6 +60,27 @@ def countPhrase():
     cur.commit()
     return phrasebook()
 
+@app.route('/popular_places', methods=['POST'])
+def popular_places():
+    cur = connect_db()
+    place = request.args['place']
+    cur.execute("""
+    UPDATE places
+    SET popularity = popularity + 1
+    WHERE id is
+    """ + str(place))
+    cur.commit()
+    return phrasebook()
+
+@app.route('/list_popular')
+def list_popular():
+    cur = get_db().execute('SELECT * FROM places')
+    places = []
+    for place in cur:
+        places.append(place)
+    print(places)
+    return render_template('places.html', places=places)
+
 
 def write_most_popular_places(localization):
     print("dsaa")
@@ -75,6 +96,3 @@ def voice_adres_from_data(lang, text):
     return whole
 if __name__ == '__main__':
     app.run()
-
-
-    # connect_db().execute( "update phrases set english = 'hello', polish = 'czesc', category = 'basic' where id = 0" );
