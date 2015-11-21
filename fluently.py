@@ -82,6 +82,12 @@ def list_popular():
     print(places)
     return render_template('places.html', places=places)
 
+@app.route('/get_country', methods=['POST'])
+def get_country():
+    lat = request.args['lat']
+    lon = request.args['lon']
+    return lat + " " + lon
+
 
 def write_most_popular_places(localization):
     print("dsaa")
