@@ -7,6 +7,10 @@
 <body>
 {% for phrase in phrases %}
     <li>{{ phrase[2] }} {{ phrase[3] }}</li>
+    <form action="/count_phrase?id={{ phrase[0] }}" method="post">
+        <button type="submit" >Increment val</button>
+    </form>
 {% endfor %}
+
 </body>
 </html>
