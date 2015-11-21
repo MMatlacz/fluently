@@ -91,8 +91,11 @@ def voice_adres_from_data(lang, text):
     p1 = u"https://translate.google.com/translate_tts?ie=UTF-8&q="
     p2 = urllib.quote_plus(text)
     p3=u"&tl=" + urllib.quote_plus(lang)
-    p4=u"&total=1&idx=0&textlen=36&tk=144350.266451&client=t&prev=input&ttsspeed=1"
-    whole = p1 + p2 + p3 +p4
+    p4=u"&total=1&idx=0&textlen="
+    p45=str(len(text))
+    p5=u"&tk=144350.266451&client=t&prev=input&ttsspeed=1"
+    whole = p1 + p2 + p3 + p4 +p45 + p5
     return whole
+
 if __name__ == '__main__':
     app.run()
