@@ -36,11 +36,14 @@ def get_db():
 def phrasebook():
     # tworzenie strony
     cur = get_db().execute('SELECT * FROM phrases')
+    names = list(map(lambda x: x[0], cur.description))
+    print(names)
     phrases = []
     for phrase in cur:
         phrases.append(phrase)
     print(phrases)
-    return render_template('index.html', phrases=phrases)
+    cur.execute("PRAGMA TABLE_INFO('phrases')")
+    return render_template('phrasebook-template.html', phrases=phrases)
 
 
 @app.route('/count_phrase', methods=['POST'])
@@ -63,6 +66,6 @@ def write_most_popular_places(localization):
 
 
 if __name__ == '__main__':
-    app.run('0.0.0.0', 5000)
+    app.run()
 
     # connect_db().execute( "update phrases set english = 'hello', polish = 'czesc', category = 'basic' where id = 0" );

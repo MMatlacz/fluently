@@ -22,15 +22,17 @@
 	</header>
 	<div class="container">
 		<div class="row phrasebook">
+			{% for phrase in phrases %}
 			<div class="col-xs-12 item">
-				<p class="native">{{polish}}</p>
-				<p class="foreign"><a href="#"><i class="fa fa-volume-up"></i> {{english}}</a></p>
+				<p class="native">{{ phrase[3] }}</p>
+				<p class="foreign"><a href="#"><i class="fa fa-volume-up"></i> {{ phrase[2] }}</a></p>
 				<div class="vote">
 					<p>Czy to hasło było pomocne?</p>
 					<button class="btn yes">Tak</button>
 					<button class="btn no">Nie</button>
 				</div>
 			</div>
+			{% endfor %}
 		</div>
 	</div>
 	<footer>
