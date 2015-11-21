@@ -84,8 +84,8 @@ def list_popular():
 
 @app.route('/static/get_country', methods=['POST'])
 def get_country():
-    lat = request.args['lat']
-    lon = request.args['lon']
+    lat = request.form['lat']
+    lon = request.form['lon']
     return lat + " " + lon
 
 
