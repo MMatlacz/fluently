@@ -32,19 +32,20 @@ def get_db():
     return db
 
 
-@app.route('/phrasebook')
+@app.route('/komunikacja')
 def phrasebook():
     # tworzenie strony
-    cur = get_db().execute('SELECT * FROM phrases')
+    cur = get_db().execute('SELECT * FROM phrases WHERE category LIKE "%Komunikacja%"')
     names = list(map(lambda x: x[0], cur.description))
     print(names)
     phrases = []
+    voices = []
     for phrase in cur:
         phrases.append(phrase)
+        voices.append(voice('en', phrase[2]))
     print(phrases)
     cur.execute("PRAGMA TABLE_INFO('phrases')")
-    voice_adres_from_data('polish','hej')
-    return render_template('phrasebook-template.html', phrases=phrases)
+    return render_template('phrasebook-template.html', data = zip(phrases, voices))
 
 
 @app.route('/count_phrase', methods=['POST'])
@@ -86,13 +87,14 @@ def write_most_popular_places(localization):
     print("dsaa")
     # baza.write("localization ++")
 
-def voice_adres_from_data(lang, text):
+def voice(lang, text):
     whole =""
     p1 = u"https://translate.google.com/translate_tts?ie=UTF-8&q="
     p2 = urllib.quote_plus(text)
     p3=u"&tl=" + urllib.quote_plus(lang)
     p4=u"&total=1&idx=0&textlen=36&tk=144350.266451&client=t&prev=input&ttsspeed=1"
     whole = p1 + p2 + p3 +p4
-    return whole
+    div = '<div class="wymowa" data-url="' + whole + '" >WYMOWA</div>'
+    return div
 if __name__ == '__main__':
     app.run()
