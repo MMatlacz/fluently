@@ -87,7 +87,7 @@ def get_country():
     lat = request.args['lat']
     lon = request.args['lon']
     print("costam")
-    return lat + " " + lon
+    return phrasebook()
 
 
 def write_most_popular_places(localization):
