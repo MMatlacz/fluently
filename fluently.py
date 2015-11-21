@@ -82,7 +82,7 @@ def list_popular():
     print(places)
     return render_template('places.html', places=places)
 
-@app.route('/static/get_country', methods=['POST'])
+@app.route('/get_country', methods=['POST'])
 def get_country():
     lat = request.args['lat']
     lon = request.args['lon']
