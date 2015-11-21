@@ -1,0 +1,1 @@
+$(document).ready(function(){$(".foreign").click(function(e){e.preventDefault(),console.log("Clicked!"),$(".vote").fadeIn(),$(".vote button").click(function(e){$(".vote").fadeOut()})})});
