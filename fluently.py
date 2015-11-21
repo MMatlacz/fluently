@@ -86,16 +86,13 @@ def write_most_popular_places(localization):
     print("dsaa")
     # baza.write("localization ++")
 
-def voice(lang, text):
+def voice_adres_from_data(lang, text):
     whole =""
     p1 = u"https://translate.google.com/translate_tts?ie=UTF-8&q="
     p2 = urllib.quote_plus(text)
     p3=u"&tl=" + urllib.quote_plus(lang)
-    #p4=u"&total=1&idx=0&textlen="
-    #p45=str(len(text))
-    p5=u"&client=t&ttsspeed=1"
-    whole = p1 + p2 + p3 + p5
+    p4=u"&total=1&idx=0&textlen=36&tk=144350.266451&client=t&prev=input&ttsspeed=1"
+    whole = p1 + p2 + p3 +p4
     return whole
-
 if __name__ == '__main__':
     app.run()
