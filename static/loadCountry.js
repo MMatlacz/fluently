@@ -22,4 +22,6 @@ function getLocalization() {
 function showPosition(position) {
     lat = position.coords.latitude;
     lon = position.coords.longitude;
+     console.info(lat);
+    console.info(lon);
 }
