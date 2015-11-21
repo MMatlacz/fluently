@@ -1,1 +1,1 @@
-$(document).ready(function(){$(".foreign").click(function(n){n.preventDefault(),$(this).siblings(".vote").fadeIn(),$(this).next().children("button").click(function(n){$(this).parent().fadeOut()})})});
+$(document).ready(function(){$(".foreign").click(function(t){t.preventDefault(),$(this).siblings(".vote").fadeIn();var n=$(this).siblings(".vote").children(".wymowa").attr("data-url");console.log(n);var i=new Audio(n);i.play(),$(this).next().children("button").click(function(t){$(this).parent().fadeOut()})})});
