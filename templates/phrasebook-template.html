@@ -15,22 +15,21 @@
 		<h2>
 			<span class="fa-stack fa-lg">
 				<i class="fa fa-circle fa-stack-2x"></i>
-				<i class="fa fa-subway fa-stack-1x fa-inverse"></i>
+				<i class="fa {{ image }} fa-stack-1x fa-inverse"></i>
 			</span>
-			komunikacja
+			{{ category }}
 		</h2>
 	</header>
 	<div class="container">
 		<div class="row phrasebook">
-			{% for phrase, voice in data%}
+			{% for phrase in phrases%}
 			<div class="col-xs-12 item">
 				<p class="native">{{ phrase[3] }}</p>
 				<p class="foreign"><a href="#"><i class="fa fa-volume-up"></i> {{ phrase[2] }}</a></p>
 				<div class="vote">
-					{{ voice|safe }}
 					<p>Czy to hasło było pomocne?</p>
-					<button class="btn yes">Tak</button>
-					<button class="btn no">Nie</button>
+						<a href="/count_phrase?id={{phrase[0]}}&c={{category}}"><button class="btn yes" >Tak</button></a>
+						<button class="btn no">Nie</button>
 				</div>
 			</div>
 			{% endfor %}

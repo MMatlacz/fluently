@@ -1,16 +1,57 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
-{% for phrase in phrases %}
-    <li>{{ phrase[2] }} {{ phrase[3] }}</li>
-    <form action="/count_phrase?id={{ phrase[0] }}" method="post">
-        <button type="submit" >Increment val</button>
-    </form>
-{% endfor %}
-
-</body>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>fluently</title>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,300,700&amp;subset=latin,latin-ext" type="text/css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="../static/bootstrap.min.css">
+	<link rel="stylesheet" href="../static/main.css">
+	<script src="{{url_for('static', filename='loadCountry.js')}}"></script>
+  </head>
+  <body onload="getLocation()">
+  	<header>
+	  	<h1><span><b>f</b>luently</span></h1>
+	  	<h2 id="text">Witaj!</h2>
+	</header>
+  	<div class="container">
+  		<div class="row main-menu">
+  			<div class="col-xs-12 col-sm-4">
+  				<a href="/categories">
+	  				<span class="fa-stack fa-lg">
+						<i class="fa fa-circle fa-stack-2x"></i>
+						<i class="fa fa-book fa-stack-1x fa-inverse"></i>
+					</span>
+					rozmówki
+				</a>
+  			</div>
+  			<div class="col-xs-12 col-sm-4">
+  				<a href="#">
+	  				<span class="fa-stack fa-lg">
+						<i class="fa fa-circle fa-stack-2x"></i>
+						<i class="fa fa-university fa-stack-1x fa-inverse"></i>
+					</span>
+					kultura
+				</a>
+  			</div>
+  			<div class="col-xs-12 col-sm-4">
+  				<a href="#">
+	  				<span class="fa-stack fa-lg">
+						<i class="fa fa-circle fa-stack-2x"></i>
+						<i class="fa fa-comment fa-stack-1x fa-inverse"></i>
+					</span>
+					shazam
+				</a>
+  			</div>
+  		</div>
+  	</div>
+  	<footer class="bottom">
+  		<small>&copy; 2015</small>
+  	</footer>
+  	<script src="../static/jquery-2.1.4.min.js"></script>
+  	<script src="../static/bootstrap.min.js"></script>
+  	<script src="../static/script.js"></script>
+  <span id="demo"></span>
+  </body>
 </html>

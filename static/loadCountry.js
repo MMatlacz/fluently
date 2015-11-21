@@ -1,30 +1,25 @@
-window.addEventListener('load', getCountryName, false );
-var lat;
-var lon;
 
-function getCountryName(){
-    getLocalization();
-    console.info(lat);
-    console.info(lon);
-
-}
-
-function getLocalization() {
+function getLocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showPosition);
-    } else {
-        //x.innerHTML = "Brak obsługi geolokalizacji.";
     }
 }
-
 function showPosition(position) {
-    lat = position.coords.latitude;
-    lon = position.coords.longitude;
-    console.info(lat);
-    console.info(lon);
-    $.ajax( document.URL.substring(0, document.URL.length - 18) + "get_country?" + "lat=" + lat + "&" + "lon=" + lon,{ // Nie wiem czy tak powinien wygladac ten url
-        success: function (responseText, statusText, jqXHR){
-            print(responseText);
+
+    $.get("http://maps.googleapis.com/maps/api/geocode/json?latlng=" +position.coords.latitude + "," + position.coords.longitude + "&sensor=true,callback",
+        function(results){
+            if(results.results.length > 0){
+                console.log(results);
+                address = results.results[0].address_components[0]['long_name'];
+                console.log(address);
+                s = 'Jak podoba Ci się ' + address + ' ?';
+                $('#text').text(s);
+            } else {
+                console.log('unnamed address');
+            }
         }
-    });
+    );
 }
+
+
+
