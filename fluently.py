@@ -86,7 +86,7 @@ def list_popular():
 def get_country():
     lat = request.args['lat']
     lon = request.args['lon']
-    print("costam")
+    print "costam"
     return phrasebook()
 
 
