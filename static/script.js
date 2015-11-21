@@ -1,1 +1,1 @@
-$(document).ready(function(){$(".foreign").click(function(i){i.preventDefault(),console.log("Clicked!"),$(this).siblings($(".vote")).fadeIn(),$(this).siblings($(".vote button")).click(function(i){$(this).fadeOut()})})});
+$(document).ready(function(){$(".foreign").click(function(n){n.preventDefault(),$(this).siblings(".vote").fadeIn(),$(this).next().children("button").click(function(n){$(this).parent().fadeOut()})})});
